@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HTTP Visualizer</title>
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 24px; color:#111 }
+        h1{margin:0 0 12px}
+        .row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+        .card{border:1px solid #ddd;padding:12px;border-radius:6px;background:#fafafa;min-width:220px}
+        table{width:100%;border-collapse:collapse}
+        th,td{padding:6px 8px;border-bottom:1px solid #eee;text-align:left;font-family:monospace;font-size:13px}
+        pre{background:#f6f8fa;padding:10px;border-radius:6px;overflow:auto}
+        button{padding:8px 12px;border-radius:6px;border:1px solid #bbb;background:#fff;cursor:pointer}
+    </style>
+</head>
+<body>
+    <h1>HTTP Visualizer</h1>
+    <div class="row">
+        <div class="card">
+            <strong>Request</strong>
+            <div id="req-method">Method: —</div>
+            <div id="req-url">URL: —</div>
+            <div id="client-ua">User Agent: —</div>
+            <div id="client-time">Client Time: —</div>
+        </div>
+
+        <div class="card">
+            <strong>Response</strong>
+            <div id="res-status">Status: —</div>
+            <div id="res-date">Server Date: —</div>
+            <div id="res-size">Body Size: —</div>
+        </div>
+
+        <div class="card" style="flex:1">
+            <strong>Controls</strong>
+            <div style="margin-top:8px">
+                <button id="btn-fetch">Fetch (no-cache)</button>
+                <button id="btn-fetch-raw">Fetch Raw (no-store)</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <strong>Response Headers</strong>
+        <table id="headers-table"><thead><tr><th>Header</th><th>Value</th></tr></thead><tbody></tbody></table>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+        <strong>Response Body (preview)</strong>
+        <pre id="body-preview">—</pre>
+    </div>
+
+    <script>
+        const el = id => document.getElementById(id);
+        const headersTableBody = document.querySelector('#headers-table tbody');
+        async function doFetch(mode = 'no-cache') {
+            const url = location.href;
+            el('req-method').textContent = 'Method: GET';
+            el('req-url').textContent = 'URL: ' + url;
+            el('client-ua').textContent = 'User Agent: ' + navigator.userAgent;
+            el('client-time').textContent = 'Client Time: ' + new Date().toISOString();
+
+            headersTableBody.innerHTML = '';
+            el('body-preview').textContent = 'Loading...';
+            try {
+                const resp = await fetch(url, { cache: mode, headers: { 'x-client-ts': Date.now().toString() } });
+                el('res-status').textContent = `Status: ${resp.status} ${resp.statusText}`;
+                el('res-date').textContent = 'Server Date: ' + (resp.headers.get('date') || '—');
+                const text = await resp.text();
+                el('res-size').textContent = 'Body Size: ' + new TextEncoder().encode(text).length + ' bytes';
+                el('body-preview').textContent = text.slice(0, 20000) || '—';
+
+                // populate headers
+                for (const [k,v] of resp.headers.entries()) {
+                    const tr = document.createElement('tr');
+                    const th = document.createElement('th');
+                    th.textContent = k;
+                    const td = document.createElement('td');
+                    td.textContent = v;
+                    tr.appendChild(th); tr.appendChild(td);
+                    headersTableBody.appendChild(tr);
+                }
+            } catch (err) {
+                el('res-status').textContent = 'Status: error';
+                el('body-preview').textContent = String(err);
+            }
+        }
+
+        document.getElementById('btn-fetch').addEventListener('click', () => doFetch('no-cache'));
+        document.getElementById('btn-fetch-raw').addEventListener('click', () => doFetch('no-store'));
+
+        // auto-run on load
+        doFetch('no-cache');
+    </script>
+</body>
+</html>
