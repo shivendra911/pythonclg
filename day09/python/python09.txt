@@ -1,0 +1,86 @@
+File Handling
+
+File Magic Numbers
+
+
+
+File Modes
+- 'r' : Read (default, file must exist)
+- 'w' : Write (creates/overwrites file)
+- 'a' : Append (adds to end of file)
+- 'x' : Create (fails if file exists)
+- 'b' : Binary mode
+- 't' : Text mode (default)
+
+Common Operations
+- open(filename, mode) : Opens a file
+- read() : Reads entire file
+- readline() : Reads one line
+- readlines() : Reads all lines as list
+- write(data) : Writes data to file
+- close() : Closes file
+
+Text modes
+
+"r"   # read
+"w"   # write (overwrite)
+"a"   # append
+"x"   # create, fail if exists
+
+Read + write combos
+
+"r+"  # read then write (no create)
+"w+"  # write then read (overwrite)
+"a+"  # append then read
+
+
+Binary modes
+
+"rb", "wb", "ab", "rb+", "wb+"
+
+
+File pointer expressions
+
+f.tell()          # current position
+f.seek(0)         # move to start
+f.seek(5)         # move to index 5
+f.seek(0, 2)      # move to end
+
+
+File existence & OS expressions
+
+import os
+
+os.path.exists("file.txt")
+os.path.isfile("file.txt")
+os.path.isdir("folder")
+os.remove("file.txt")
+os.rename("a.txt", "b.txt")
+
+
+
+Common Magic Numbers (Must Know)
+
+
+| File Type       | Hex Signature | ASCII |
+| --------------- | ------------- | ----- |
+| PNG             | `89 50 4E 47` | ‰PNG  |
+| JPG             | `FF D8 FF`    | ÿØÿ   |
+| GIF             | `47 49 46 38` | GIF8  |
+| PDF             | `25 50 44 46` | %PDF  |
+| ZIP             | `50 4B 03 04` | PK..  |
+| EXE             | `4D 5A`       | MZ    |
+| MP3             | `49 44 33`    | ID3   |
+| ELF (Linux bin) | `7F 45 4C 46` | .ELF  |
+
+
+
+hashvalues in python environment --> pip vs uv 
+or poetry or locks
+
+
+
+selenium and web drivers
+
+
+ip rotation

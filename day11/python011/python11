@@ -1,0 +1,45 @@
+class Car:
+
+    def breaks():
+        print("breaking")
+
+    def speed():
+        print("Accelerating")
+
+    
+
+
+a = Car()
+a.price = 10
+a.speed()
+# print(a.__dict__)
+
+# a = Car
+# print(a)
+
+# how to limit acces to new attributes which is not defined in the class.
+# eg. creating a new attribute price which is not defined in the class Car. how to restrict that? 
+# we can restrict by using __slots__ in the class definition. 
+# __slots__ is a special attribute that can be defined in a class to restrict the creation of new attributes that are not defined in the class.
+
+# various types of __slots__ are: 
+# __slots__ = []  # restricts all new attributes
+# __slots__ = ['price']  # allows only price attribute  
+# __slots__ = ['price', 'model']  # allows only price and model attributes
+
+
+
+## why to use __init__ in classes?
+# __init__ is a special method in Python classes that is called when an object is created. 
+# It is used to initialize the attributes of the object with specific values. This allows for more flexible
+# and reusable code, as you can create multiple instances of the class with different attribute values without having to write separate code for each instance.
+
+
+
+#Why self is needed in classes?
+# self is a reference to the current instance of the class. It is used to access the attributes and methods of the class within the class definition. 
+# It allows you to differentiate between instance attributes and local variables within the class methods. 
+# By convention, self is used as the first parameter in instance methods to refer to the instance of the class that is calling the method.
+
+
+## app = Flask(__name__)  # __name__ is a special variable in Python that represents the name of the current module.

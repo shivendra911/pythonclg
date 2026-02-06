@@ -1,0 +1,3 @@
+             this is first new input from python09.py
+this is second input from python09.py
+this is third input from python09.py
