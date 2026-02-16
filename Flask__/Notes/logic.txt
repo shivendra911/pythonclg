@@ -1,0 +1,41 @@
+
+                        JINJA2 Syntax
+
+
+
+| Syntax                      | Meaning                         | Example                     | What It Does               |           |               |
+| --------------------------- | ------------------------------- | --------------------------- | -------------------------- | --------- | ------------- |
+| `{{ variable }}`            | Output data (print value)       | `{{ name }}`                | Prints value of variable   |           |               |
+| `{% ... %}`                 | Logic / control statement       | `{% if age > 18 %}`         | Used for conditions, loops |           |               |
+| `{# ... #}`                 | Comment                         | `{# this is comment #}`     | Not visible in browser     |           |               |
+| `{{ variable  filter }}`    | Apply filter                    | `{{ name | upper }}`        | Modify output              |"shivendra"| "SHIVENDRA"
+| `{% set var = value %}`     | Create variable inside template | `{% set x = 10 %}`          | Assign variable            |           |               |
+| `{% include "file.html" %}` | Include another template        | `{% include "nav.html" %}`  | Reuse template             |           |               |
+| `{% extends "base.html" %}` | Template inheritance            | `{% extends "base.html" %}` | Use base layout            |           |               |
+| `{% block name %}`          | Define replaceable section      | `{% block content %}`       | Used in inheritance        |           |               |
+
+Common filters:
+| Filter   | Meaning               |
+| -------- | --------------------- |
+| `upper`  | Convert to uppercase  |
+| `lower`  | Convert to lowercase  |
+| `title`  | First letter capital  |
+| `length` | Length of list/string |
+| `safe`   | Disable auto-escape   |
+
+
+Accessing Dictionary Data
+
+user = {"name": "Shivendra", "age": 21}
+
+template:
+{{ user.name }}
+{{ user["age"] }}
+
+#important rule 
+
+| Use             | Syntax  |
+| --------------- | ------- |
+| Print something | `{{ }}` |
+| Run logic       | `{% %}` |
+| Write comment   | `{# #}` |

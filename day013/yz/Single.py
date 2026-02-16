@@ -1,0 +1,26 @@
+# ✔ One parent
+# ✔ One child
+
+class Parent:
+    pass
+
+class Child(Parent):
+    pass
+
+
+
+
+######################################################################################################
+
+class Animal:
+    def eat(self):
+        print("Animal eats")
+
+class Dog(Animal):
+    def bark(self):
+        print("Dog barks")
+
+
+d = Dog()
+d.eat()
+d.bark()

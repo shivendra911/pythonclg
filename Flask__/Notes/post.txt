@@ -1,0 +1,15 @@
+🔹 1️⃣ request.form
+
+Used for:
+
+POST
+Content-Type: application/x-www-form-urlencoded
+
+
+Example:
+
+request.form.get("user_name")
+
+
+Data comes from:
+Form body.

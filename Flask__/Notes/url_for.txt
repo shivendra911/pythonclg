@@ -1,0 +1,45 @@
+url_for()
+
+Flask generates URLs automatically using function names.
+syntax:
+        <a href="{{ url_for('function_name') }}">Link</a>
+
+
+lets say:
+
+            @app.route("/user/<name>")
+                def user(name):
+                    return f"Hello {name}"
+
+
+
+            In template: 
+
+                <a href="{{ url_for('user', name='Shivendra') }}">
+                    Visit Profile
+                </a>
+
+                    ||||||
+                    ||||||
+                    ||||||
+                   \      /
+                    \    /
+                     \  /
+                      \/
+        It converts automatically:
+        
+        /user/Shivendra
+
+for other eg.:  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+            | Wrong              | Correct                                  |
+| ------------------ | ---------------------------------------- |
+| `/about`           | `url_for('about')`                       |
+| `/user/xyz`        | `url_for('user', name='xyz')`            |
+| `/static/file.css` | `url_for('static', filename='file.css')` |
+
+
+It dynamically generates URLs using route function names instead of hardcoding paths.
+            
+

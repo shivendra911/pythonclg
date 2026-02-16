@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Enter Details</h2>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('form') }}" method="POST">
+        <!-- Name: <input type="text" name="name"><br><br>
+        Age: <input type="number" name="age"><br><br> -->
+
+        Name: <input type="text" name="name" value="{{ name or '' }}"><br><br>
+        Age: <input type="number" name="age" value="{{ age or '' }}"><br><br>
+
+
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock %}

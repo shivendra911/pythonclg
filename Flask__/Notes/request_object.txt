@@ -1,0 +1,17 @@
+Flask Creates the request Object
+
+Before calling your function, Flask creates a request object.
+
+It contains:
+
+request.method
+
+request.headers
+
+request.form
+
+request.args
+
+request.files
+
+request.cookies

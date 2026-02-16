@@ -1,0 +1,247 @@
+2️⃣ request.args
+
+Used for:
+
+GET /return?user_name=Shivendra
+
+
+This is called:
+
+👉 Query Parameters
+👉 URL Parameters
+
+Example:
+
+request.args.get("user_name")
+
+
+The data comes from:
+The URL itself.
+
+
+
+
+3️⃣ request.headers
+
+This stores metadata like:
+
+request.headers.get("User-Agent")
+request.headers.get("Content-Type")
+request.headers.get("Host")
+
+
+Example:
+
+If request contains:
+
+User-Agent: Mozilla/5.0
+
+
+Then:
+
+request.headers.get("User-Agent")
+
+
+returns:
+
+Mozilla/5.0
+
+
+
+
+
+| Type           | Stored In       | Example                  |
+| -------------- | --------------- | ------------------------ |
+| GET data       | request.args    | `/return?name=Shivendra` |
+| POST form data | request.form    | Form submission          |
+| JSON body      | request.json    | API calls                |
+| Metadata       | request.headers | Content-Type, User-Agent |
+
+
+
+
+Both request.form and request.args are:
+
+ImmutableMultiDict
+
+
+Meaning:
+
+They behave like dictionaries
+
+But can store multiple values for same key
+
+Example:
+
+?skill=python&skill=java
+
+
+Then:
+
+request.args.getlist("skill")
+
+
+returns:
+
+["python", "java"]
+
+
+
+
+What is request.values?
+
+request.values is:
+
+✅ A CombinedMultiDict object
+(Combination of request.args + request.form)
+
+So it contains:
+
+GET parameters  +  POST form data
+
+🔹 Internally It Is Like:
+request.values = CombinedMultiDict([request.args, request.form])
+
+
+So when you do:
+
+request.values.get("user_name")
+
+
+Flask checks:
+
+1️⃣ First in request.args
+2️⃣ Then in request.form
+
+🔥 Example 1 (GET)
+GET /return?user_name=Shivendra
+
+
+Then:
+
+request.args.get("user_name")     → Shivendra
+request.form.get("user_name")     → None
+request.values.get("user_name")   → Shivendra
+
+🔥 Example 2 (POST Form)
+
+Form submission:
+
+POST /return
+Body: user_name=Shivendra
+
+
+Then:
+
+request.args.get("user_name")     → None
+request.form.get("user_name")     → Shivendra
+request.values.get("user_name")   → Shivendra
+
+🔥 So Why Does request.values Exist?
+
+Because sometimes you don’t care whether data came from:
+
+GET
+
+POST
+
+You just want:
+
+Give me the value if it exists anywhere.
+
+
+So Flask gives a shortcut.
+
+🔥 Important Warning (Advanced)
+
+If both GET and POST contain the same key:
+
+GET /return?user_name=A
+POST body: user_name=B
+
+
+Then:
+
+request.values.get("user_name")
+
+
+Usually gives:
+
+A
+
+
+Because args is checked first.
+
+This can cause subtle bugs in real applications ⚠
+
+
+
+
+request
+ ├── args     (GET data)
+ ├── form     (POST form data)
+ ├── json     (JSON body)
+ ├── headers  (metadata)
+ ├── values   (args + form)
+
+
+
+We should use:
+
+request.json
+
+
+or
+
+request.get_json()
+
+
+Example:
+
+data = request.get_json()
+name = data.get("user_name")
+
+
+OR shorter:
+
+name = request.json.get("user_name")
+
+
+
+Internally Flask does:
+
+If:
+
+Content-Type == application/json
+
+
+Then it:
+
+1️⃣ Reads raw body
+2️⃣ Uses JSON parser
+3️⃣ Converts it into Python dictionary
+
+So:
+
+{
+   "user_name": "Shivendra"
+}
+
+
+becomes:
+
+{
+   "user_name": "Shivendra"
+}
+
+
+(a Python dict)
+
+
+
+| Content-Type                      | Access Using  |
+| --------------------------------- | ------------- |
+| application/x-www-form-urlencoded | request.form  |
+| multipart/form-data               | request.files |
+| application/json                  | request.json  |
+| URL query params                  | request.args  |

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hotels | Price Comparison
+{% endblock %}
+
+{% block content %}
+
+<h2 style="text-align:center;">Available Hotel Rooms</h2>
+
+<div class="hotel-container">
+
+    {% if hotels and hotels|length > 0 %}
+
+        {% for hotel in hotels %}
+        <div class="hotel-card">
+
+            <h3>{{ hotel.name }}</h3>
+
+            <p><strong>Location:</strong> {{ hotel.location }}</p>
+
+            <p class="price">₹ {{ hotel.price }}</p>
+
+            <p class="rating">⭐ {{ hotel.rating }}</p>
+
+            {% if hotel.price|int < 2000 %}
+                <span class="badge">Best Deal</span>
+            {% endif %}
+
+            {% if admin %}
+                <a href="/delete/{{ loop.index0 }}">
+                    <button class="delete-btn">Delete</button>
+                </a>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+    {% else %}
+        <p style="text-align:center;">No hotels available.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block extra_head %}
+<style>
+
+.hotel-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.hotel-card {
+    background: white;
+    width: 260px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    position: relative;
+}
+
+.hotel-card:hover {
+    transform: translateY(-6px);
+}
+
+.price {
+    font-size: 20px;
+    color: green;
+    font-weight: bold;
+}
+
+.rating {
+    color: #ff9800;
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #28a745;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.delete-btn {
+    margin-top: 10px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+</style>
+{% endblock %}

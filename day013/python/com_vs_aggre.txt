@@ -1,0 +1,51 @@
+| Feature         | Aggregation     | Composition |
+| --------------- | --------------- | ----------- |
+| Relationship    | HAS-A           | PART-OF     |
+| Object creation | External        | Internal    |
+| Life cycle      | Independent     | Dependent   |
+| Example         | Student–Address | Car–Engine  |
+
+
+Aggregation → uses
+Composition → owns
+
+
+
+Abstraction → WHAT to do
+
+
+
+| Feature         | Abstraction     | Aggregation      | Composition      |
+| --------------- | --------------- | ---------------- | ---------------- |
+| Type            | Concept         | Relationship     | Relationship     |
+| Focus           | Behavior        | Object usage     | Object ownership |
+| Relationship    | Interface-based | HAS-A (weak)     | HAS-A (strong)   |
+| Dependency      | No object link  | Independent life | Dependent life   |
+| Object creation | Not applicable  | Outside class    | Inside class     |
+| Example         | Payment         | Student–Address  | Car–Engine       |
+
+
+| Concept     | Example                       |
+| ----------- | ----------------------------- |
+| Abstraction | `withdraw()` method           |
+| Aggregation | Customer has Address          |
+| Composition | BankAccount has AccountNumber |
+
+
+
+| Question    | Abstraction    | Aggregation  | Composition  |
+| ----------- | -------------- | ------------ | ------------ |
+| What is it? | Concept        | Relationship | Relationship |
+| Focus       | WHAT           | USES         | OWNS         |
+| Deals with  | Methods        | Objects      | Objects      |
+| Life-cycle  | Not applicable | Independent  | Dependent    |
+
+
+Abstraction → HOW YOU DESIGN
+Aggregation → HOW OBJECTS CONNECT
+Composition → HOW OBJECTS DEPEND
+
+
+Abstraction ≠ Relationship
+Aggregation = Relationship
+Composition = Relationship

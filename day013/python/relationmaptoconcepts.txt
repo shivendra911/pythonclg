@@ -1,0 +1,5 @@
+Abstraction → Interface / Methods
+Polymorphism → Different implementations
+Encapsulation → Data protection
+Aggregation → Uses object
+Composition → Owns object
